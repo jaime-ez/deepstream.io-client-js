@@ -24,7 +24,8 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "mocha --opts mocha.opts",
     "test:coverage": "nyc mocha --opts mocha.opts",
-    "bundle:analyse": "webpack --config webpack.prod.js --profile --json > ./dist/stats.json && webpack-bundle-analyzer ./dist/stats.json"
+    "bundle:analyse": "webpack --config webpack.prod.js --profile --json > ./dist/stats.json && webpack-bundle-analyzer ./dist/stats.json",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
