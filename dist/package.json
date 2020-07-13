@@ -1,0 +1,107 @@
+{
+    "name": "@deepstream/client",
+    "version": "5.1.2",
+    "description": "the javascript client for deepstream.io",
+    "keywords": [
+        "deepstream",
+        "javascript",
+        "realtime",
+        "client"
+    ],
+    "mocha": {
+        "recursive": true,
+        "reporter": "dot",
+        "require": "ts-node/register/transpile-only",
+        "exit": true
+    },
+    "main": "dist/src/deepstream.js",
+    "types": "dist/src/deepstream-client.d.ts",
+    "directories": {
+        "test": "src/test"
+    },
+    "scripts": {
+        "tsc": "rm -rf dist && tsc",
+        "build": "npm run tsc && npm run build:dev && npm run build:prod",
+        "build:dev": "webpack --config webpack.dev.js",
+        "build:prod": "webpack --config webpack.prod.js",
+        "rebuild": "rimraf dist && webpack",
+        "clean": "rimraf dist",
+        "lint": "tslint src/*.ts src/**/*.ts -t verbose",
+        "lint:fix": "npm run lint -- --fix",
+        "test": "mocha src/**/*.spec.ts",
+        "test:coverage": "nyc mocha src/**/*.spec.ts",
+        "bundle:analyse": "webpack --config webpack.prod.js --profile --json > ./dist/stats.json && webpack-bundle-analyzer ./dist/stats.json",
+        "postinstall": "node scripts/postinstall.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/deepstreamIO/deepstream.io-client-js.git"
+    },
+    "dependencies": {
+        "@deepstream/protobuf": "^1.0.4",
+        "protobufjs": "^6.9.0",
+        "ws": "^7.3.0"
+    },
+    "browser": {
+        "net": false,
+        "ws": false
+    },
+    "devDependencies": {
+        "@types/chai": "^4.2.11",
+        "@types/mocha": "^7.0.2",
+        "@types/node": "^14.0.14",
+        "@types/sinon": "^9.0.4",
+        "@types/ws": "^7.2.6",
+        "chai": "^4.2.0",
+        "coveralls": "^3.1.0",
+        "husky": "^4.2.5",
+        "mocha": "^8.0.1",
+        "nyc": "^15.1.0",
+        "rimraf": "^3.0.2",
+        "sinon": "^9.0.2",
+        "terser-webpack-plugin": "^3.0.6",
+        "ts-essentials": "^7.0.0",
+        "ts-loader": "^7.0.5",
+        "ts-node": "^8.10.2",
+        "tslint": "^6.1.2",
+        "typescript": "^3.9.6",
+        "uglifyjs-webpack-plugin": "^2.2.0",
+        "webpack": "^4.43.0",
+        "webpack-bundle-analyzer": "^3.8.0",
+        "webpack-cli": "^3.3.12"
+    },
+    "author": "deepstreamHub GmbH",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/deepstreamIO/deepstream.io-client-js/issues"
+    },
+    "homepage": "http://deepstream.io",
+    "eslintConfig": {
+        "extends": "deepstream"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm t && npm run lint && npm run build",
+            "pre-publish": "npm t && npm run build"
+        }
+    },
+    "nyc": {
+        "include": [
+            "src/**/*.ts"
+        ],
+        "exclude": [
+            "src/**/*.spec.ts"
+        ],
+        "extension": [
+            ".ts"
+        ],
+        "require": [
+            "ts-node/register"
+        ],
+        "reporter": [
+            "lcov"
+        ],
+        "sourceMap": false,
+        "instrument": false
+    }
+}
