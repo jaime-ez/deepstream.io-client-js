@@ -7,8 +7,9 @@ if (deepstreamEnv !== 'react-native') {
 const saveFile = require('fs').writeFileSync
 const reactNativeMainPath = 'dist/bundle/ds.min.js'
 
-const pkgJsonPath = require.main.filename.split('scripts/postinstall')[0] + 'package.json'
-const pkgJsonPathDist = require.main.filename.split('scripts/postinstall')[0] + 'dist/package.json'
+const basePath = require.main.filename.split('scripts/postinstall')[0]
+const pkgJsonPath =  basePath + 'package.json'
+const pkgJsonPathDist = basePath + 'dist/package.json'
 
 const json = require(pkgJsonPath)
 const jsonDist = require(pkgJsonPathDist)
