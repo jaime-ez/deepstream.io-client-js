@@ -1,6 +1,10 @@
-name: test-lint
+name: test-build
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  release:
+    types: [created]
 
 jobs:
   build:
