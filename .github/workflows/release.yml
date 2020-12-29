@@ -17,10 +17,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
+    - run: npm run lint
+    - run: npm run test:coverage
     - run: npm run build
 
   release:
-    if: ${{ github.ref == 'master' }}
+    if: ${{ github.ref == 'github-actions' }}
     needs: build
     runs-on: ubuntu-latest
     steps:
