@@ -1,13 +1,15 @@
 name: Node.js CI
 
-on: [push, pull_request]
+on:
+  release:
+    types: [created]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
+        node-version: [10.x]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -18,3 +20,11 @@ jobs:
     - run: npm run lint
     - run: npm run test:coverage
     - run: npm run build
+
+  release:
+    if: ${{ github.ref == 'master' }}
+    needs: build
+    steps:
+    - run: npm run publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
